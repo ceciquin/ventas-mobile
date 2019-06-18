@@ -1,6 +1,0 @@
-Pedido: nro_Pedido ( PK,autoincremental) , nro_Cliente (FK), nro_Vendedor(FK), id_Producto(FK)
-Producto: Nombre_Producto, id_Producto (PK), Precio_Producto
-Stock:id_Producto(FK), cantidadDisponible_Producto, id_Stock (PK)
-Vendedor:nro_Vendedor (PK), nombre_Vendedor, apellido_Vendedor, zona_Vendedor
-Cliente: nro_Cliente(PK), nombre_Cliente, apellido_Cliente
-item_Producto: id_ItemProducto (PK), id_Producto (FK), id_Pedido(FK), cantidad
