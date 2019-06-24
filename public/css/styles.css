@@ -1,63 +1,79 @@
-.btnContactSubmit
-{
-    width: 50%;
-    border-radius: 1rem;
-    padding: 1.5%;
-    color: #fff;
-    background-color: #0062cc;
-    border: none;
-    cursor: pointer;
-    margin-right: 6%;
-    background-color: white;
-    color: blue;
-    margin-top: 4%;
+body, html {
+  height:100%;
 }
-.register .nav-tabs .nav-link:hover{
-    border: none;
-}
-.text-align{
-    margin-top: -3%;
-    margin-bottom: -9%;
 
-    padding: 10%;
-    margin-left: 30%;
+/*
+ * Off Canvas sidebar at medium breakpoint
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 992px) {
+
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -33%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 33%;
+    margin-left: -6px;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 33%;
+    height: 100%;
+  }
 }
-.form-new{
-    margin-right: 22%;
-    margin-left: 20%;
+
+/*
+ * Off Canvas wider at sm breakpoint
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 34em) {
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -45%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 45%;
+    margin-left: -6px;
+  }
+  
+  .sidebar-offcanvas {
+    width: 45%;
+  }
 }
-.register-heading{
-    margin-left: 21%;
-    margin-bottom: 10%;
-    color: #e9ecef;
+
+.card {
+    overflow:hidden;
 }
-.register-heading h1{
-    margin-left: 21%;
-    margin-bottom: 10%;
-    color: #e9ecef;
+
+.card-body .rotate {
+    z-index: 8;
+    float: right;
+    height: 100%;
 }
-.btnLoginSubmit{
-    border: none;
-    padding: 2%;
-    width: 25%;
-    cursor: pointer;
-    background: #29abe2;
-    color: #fff;
-}
-.btnForgetPwd{
-    cursor: pointer;
-    margin-right: 5%;
-    color: #f8f9fa;
-}
-.register{
-    background: -webkit-linear-gradient(left, #414055, #b2b1b3);
-    margin-top: 3%;
-    padding: 3%;
-    border-radius: 2.5rem;
-}
-.nav-tabs .nav-link{
-    border: 1px solid transparent;
-    border-top-left-radius: .25rem;
-    border-top-right-radius: .25rem;
-    color: rgb(255, 255, 255);
+
+.card-body .rotate i {
+    color: rgba(20, 20, 20, 0.15);
+    position: absolute;
+    left: 0;
+    left: auto;
+    right: -10px;
+    bottom: 0;
+    display: block;
+    -webkit-transform: rotate(-44deg);
+    -moz-transform: rotate(-44deg);
+    -o-transform: rotate(-44deg);
+    -ms-transform: rotate(-44deg);
+    transform: rotate(-44deg);
 }
