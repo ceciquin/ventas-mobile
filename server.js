@@ -25,7 +25,24 @@ server.get('/', (req, res) => { //get Method route
 
 server.get('/orders', (req, res) => {
     //let products = db_client.products.getAll();
-    res.render('ordersForm', {products: [{name: "yerba"}]});
+    let mock = [
+        {
+            id: 1,
+            name: "yerba",
+            price: 200
+        },
+        {
+            id: 2,
+            name: "leche",
+            price: 100
+        },
+        {
+            id: 3,
+            name: "azucar",
+            price: 30
+        }
+    ];
+    res.render('ordersForm', {products: [{name: mock}]});
 });
 
 server.post('orders/new_order', (res, req) => {
