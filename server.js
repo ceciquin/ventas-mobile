@@ -42,7 +42,7 @@ server.get('/orders', (req, res) => {
             price: 30
         }
     ];
-    res.render('ordersForm', {products: [{name: mock}]});
+    res.render('ordersForm', {products: mock});
 });
 
 server.post('orders/new_order', (res, req) => {
