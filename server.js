@@ -45,7 +45,7 @@ server.get('/orders', (req, res) => {
     res.render('ordersForm', {products: mock});
 });
 
-server.post('orders/new_order', (res, req) => {
+server.post('/orders/new_order', (res, req) => {
     let queryString = req.query;
 
     /*db_client.order.save(queryString, function (err) {
