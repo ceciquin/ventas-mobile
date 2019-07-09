@@ -3,7 +3,8 @@ const chalk = require('chalk'); // give color to certain message at cmd
 const debug = require('debug')('server'); // give the option to debug only in debug mode
 const path = require('path'); // to get the "join" method, to join strings
 const morgan = require('morgan');//information about web traffic
-//const _ = require('lodash');
+
+const dbClient = require('./clients/db_client.js')
 
 const server = express(); //instance of express
 
@@ -16,33 +17,39 @@ server.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/')))
 server.set('views', './src/view'); // dir for the engine views
 server.set('view engine', 'ejs');
 
-
 server.get('/', (req, res) => { //get Method route
-    res.render('index', {title: 'Ventas Mobile'});
+    res.render('index', { title: 'Ventas Mobile' });
 });
 
 // ###############    ORDERS    ###############
 
 server.get('/orders', (req, res) => {
-    //let products = db_client.products.getAll();
-    let mock = [
-        {
-            id: 1,
-            name: "yerba",
-            price: 200
-        },
-        {
-            id: 2,
-            name: "leche",
-            price: 100
-        },
-        {
-            id: 3,
-            name: "azucar",
-            price: 30
-        }
-    ];
-    res.render('ordersForm', {products: mock});
+    //let products = dbClient.getProducts();
+
+    dbClient.getProducts().then(function (prods) {
+        console.log(prods);
+        res.render('ordersForm', { products: prods });
+    })
+
+    // console.log('pros => ',products);
+    // let mock = [
+    //     {
+    //         id: 1,
+    //         name: "yerba",
+    //         price: 200
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "leche",
+    //         price: 100
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "azucar",
+    //         price: 30
+    //     }
+    // ];
+    // res.render('ordersForm', { products: mock });
 });
 
 server.post('/orders/new_order', (res, req) => {
