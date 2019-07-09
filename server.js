@@ -24,32 +24,9 @@ server.get('/', (req, res) => { //get Method route
 // ###############    ORDERS    ###############
 
 server.get('/orders', (req, res) => {
-    //let products = dbClient.getProducts();
-
     dbClient.getProducts().then(function (prods) {
-        console.log(prods);
         res.render('ordersForm', { products: prods });
     })
-
-    // console.log('pros => ',products);
-    // let mock = [
-    //     {
-    //         id: 1,
-    //         name: "yerba",
-    //         price: 200
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "leche",
-    //         price: 100
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "azucar",
-    //         price: 30
-    //     }
-    // ];
-    // res.render('ordersForm', { products: mock });
 });
 
 server.post('/orders/new_order', (res, req) => {
