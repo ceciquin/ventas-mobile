@@ -19,8 +19,7 @@ function executeQuery(query) {
 function getProducts() {
     return executeQuery('select p.Nombre_Producto, p.id_Producto, p.Precio_Producto, s.cantidadDisponible_Producto from Producto as p join Stock as s on p.id_Producto = s.id_Producto')
         .then(function (rs) {
-            let recordset = rs.recordset;
-            return _.map(recordset, function (register) {
+            return _.map(rs.recordset, function (register) {
                 let product = {};
 
                 product.id = Number(register.id_Producto);
@@ -35,6 +34,25 @@ function getProducts() {
         });
 }
 
+function newOrder(params) {
+
+}
+
+function getStock() {
+    return executeQuery('select p.Nombre_Producto, s.cantidadDisponible_Producto from Producto as p join Stock as s on p.id_Producto = s.id_Producto')
+        .then((rs) => { 
+            return _.map(rs.recordset, function(register) {
+                let product = {};
+
+                product.name = register.Nombre_Producto;
+                product.stock = Number(register.cantidadDisponible_Producto);
+
+                return product;
+            });
+        });
+}
+
 module.exports = {
-    getProducts: getProducts
+    getProducts: getProducts,
+    getStock: getStock
 }

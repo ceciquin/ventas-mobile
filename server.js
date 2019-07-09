@@ -42,6 +42,16 @@ server.post('/orders/new_order', (res, req) => {
 
 // ###############    ORDERS    ###############
 
+// ###############    STOCK    ###############
+
+server.get('/products', (req, res) => {
+    dbClient.getStock().then(function (stock) {
+        res.json(stock);
+    });
+});
+
+// ###############    STOCK    ###############
+
 server.listen(3000, () => {
     debug(`listening on port ${chalk.green('3000')}`);
 });
