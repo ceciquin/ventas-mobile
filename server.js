@@ -24,9 +24,30 @@ server.get('/', (req, res) => { //get Method route
 // ###############    ORDERS    ###############
 
 server.get('/orders', (req, res) => {
-    dbClient.getProducts().then(function (prods) {
+/*    dbClient.getProducts().then(function (prods) {
         res.render('ordersForm', { products: prods });
     })
+*/
+res.render('ordersForm', {
+        products: [
+            {
+                id: 5001,
+                name: 'Galletitas sin gluten',
+                price: 100,
+                stock: 100
+            },
+            { id: 5002, name: 'Yerba Organica', price: 130, stock: 200 },
+            { id: 5003, name: 'Hamburguesas V', price: 200, stock: 500 },
+            { id: 5004, name: 'Tofu', price: 220, stock: 200 },
+            { id: 5005, name: 'Queso Descremado', price: 150, stock: 300 },
+            { id: 5006, name: 'Vino Organico', price: 500, stock: 100 },
+            { id: 5007, name: 'Aceite oliva 2lt', price: 310, stock: 800 },
+            { id: 5008, name: 'Te Matcha Organico', price: 700, stock: 400 },
+            { id: 5009, name: 'Helado Vegano', price: 110, stock: 600 },
+            { id: 5010, name: 'Almidon Mandioca 1kg', price: 190, stock: 200 }
+        ]
+    });
+
 });
 
 server.post('/orders/new_order', (res, req) => {

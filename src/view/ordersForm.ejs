@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+<script src="ordersForm.js"></script
+ 
 <form>
   <div class="form-group">
     <label for="cliente">Nombre Cliente</label>
     <input type="text" class="form-control" id="cliente" placeholder="Ingrese nombre Cliente">
   </div>
-  <div class="form" display="hidden"> BUSCAR ATRIBUTO PARA OCULTAR TODO EL DIV
+  <div class="d-none">
     <label for="vendedor">Nombre Vendedor</label>
     <input type="text" class="form-control" id="vendedor" placeholder="toma del login">
   </div>
@@ -22,15 +23,15 @@
     </div>
     <div class="col-auto my-1">
     	<label for="precioproducto">Precio Producto</label>
-    	<input type="text" class="form-control" id="precioproducto" placeholder="Precio Producto">
+    	<input class="form-control" type="text" id="precioproducto" placeholder=product.price onChange="multiplicar();">
     </div>
     <div class="col-auto my-1">
     	<label for="cantidadproducto">Cantidad Producto</label>
-    	<input type="text" class="form-control" id="cantidadproducto" placeholder="Cantidad Producto">
+    	<input type="text" class="form-control" id="cantidadproducto" placeholder="Ingrese Cantidad" onChange="multiplicar();">
     </div>
 	<div class="col">
     	<label for="totalproducto">Precio Producto</label>
-    	<input type="text" class="form-control" id="totalproducto" placeholder="Total Producto">
+    	<input type="text" class="form-control" id="totalproducto" placeholder="Total Producto" readonly>
     </div>
  </div>
 
@@ -38,9 +39,5 @@
     <label for="totalpedido">Total Pedido</label>
     <input type="text" class="form-control" id="totalpedido" placeholder="suma totalproducto">
   </div>
+  <button type="cargar" class="btn btn-primary" id="btn">Cargar</button>
 </form>
-
-producto - precio - cantidad producto - total producto
-cliente
-nombre vendedor
-total pedido
