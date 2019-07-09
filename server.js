@@ -44,7 +44,7 @@ server.post('/orders/new_order', (res, req) => {
 
 // ###############    STOCK    ###############
 
-server.get('/products', (req, res) => {
+server.get('/stock', (req, res) => {
     dbClient.getStock().then(function (stock) {
         res.json(stock);
     });
