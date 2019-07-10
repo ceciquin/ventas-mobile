@@ -1,6 +1,9 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="ordersForm.js"></script
- 
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
 <form>
   <div class="form-group">
     <label for="cliente">Nombre Cliente</label>
@@ -11,33 +14,103 @@
     <input type="text" class="form-control" id="vendedor" placeholder="toma del login">
   </div>
 
-  <div class="form-row align-items-center">
-  	<div class="col-auto my-1">
-  		<label for="producto">Producto</label> 	
-    	<select class="custom-select">
-    		<option selected>Elegir Producto</option>
-    		<% products.forEach((product) => { %>
-    		<option value><%= product.name %></option>
-      		<% }) %>
-      	</select>
+  <div class="form-row align-items-center" id="productRow0">
+    <div class="col-auto my-1">
+      <label for="producto">Producto</label>
+      <select class="custom-select" id="products0">
+        <option value="default">Elegir Producto</option>
+        <% products.forEach((product) => { %>
+        <option value=<%= product.id %>><%= product.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="col-auto my-1" id="price0">
+      <label for="precioproducto">Precio unidad</label>
+      <input class="form-control" type="text" disabled="disabled">
     </div>
     <div class="col-auto my-1">
-    	<label for="precioproducto">Precio Producto</label>
-    	<input class="form-control" type="text" id="precioproducto" placeholder=product.price onChange="multiplicar();">
+      <label for="cantidadproducto">Cantidad Producto</label>
+      <input type="text" class="form-control" id="qty0" placeholder="Ingrese Cantidad">
     </div>
-    <div class="col-auto my-1">
-    	<label for="cantidadproducto">Cantidad Producto</label>
-    	<input type="text" class="form-control" id="cantidadproducto" placeholder="Ingrese Cantidad" onChange="multiplicar();">
+    <div class="col" id="total0">
+      <label for="totalproducto">Precio Producto</label>
+      <input type="text" class="form-control" id="totalProduct0" placeholder="Total Producto" disabled="disabled">
     </div>
-	<div class="col">
-    	<label for="totalproducto">Precio Producto</label>
-    	<input type="text" class="form-control" id="totalproducto" placeholder="Total Producto" readonly>
-    </div>
- </div>
+  </div>
+  <button type="button" class="btn btn-secondary" id="newProduct">Add new</button>
+  <button type="button" class="btn btn-secondary" id="finish">Finish</button>
 
   <div class="form-group">
     <label for="totalpedido">Total Pedido</label>
-    <input type="text" class="form-control" id="totalpedido" placeholder="suma totalproducto">
+    <input type="text" class="form-control" id="totalOrder" placeholder="Total" disabled="disabled">
   </div>
   <button type="cargar" class="btn btn-primary" id="btn">Cargar</button>
 </form>
+
+<script type="text/javascript">
+  var products = <%- JSON.stringify(products) %>;
+  var selectedObj;
+  var count = 0;
+
+  $("#newProduct").click(function () {
+    var template = '<div class="form-row align-items-center" id="productRow' + ++count + '">\n' +
+      '    <div class="col-auto my-1">\n' +
+      '      <label for="producto">Producto</label>\n' +
+      '      <select class="custom-select" id="products' + count + '">\n' +
+      '        <option value="default">Elegir Producto</option>\n' +
+      '        <% products.forEach((product) => { %>\n' +
+      '        <option value=<%= product.id %>><%= product.name %></option>\n' +
+      '        <% }) %>\n' +
+      '      </select>\n' +
+      '    </div>\n' +
+      '    <div class="col-auto my-1" id="price' + count + '">\n' +
+      '      <label for="precioproducto">Precio unidad</label>\n' +
+      '      <input class="form-control" type="text" disabled="disabled">\n' +
+      '    </div>\n' +
+      '    <div class="col-auto my-1">\n' +
+      '      <label for="cantidadproducto">Cantidad Producto</label>\n' +
+      '      <input type="text" class="form-control" id="qty' + count + '" placeholder="Ingrese Cantidad">\n' +
+      '    </div>\n' +
+      '    <div class="col" id="total' + count + '">\n' +
+      '      <label for="totalproducto">Precio Producto</label>\n' +
+      '      <input type="text" class="form-control" id="totalProduct' + count + '" placeholder="Total Producto" disabled="disabled">\n' +
+      '    </div>';
+    $(".form-row").last().after(template);
+    reloadChangeEvents();
+  });
+
+  function reloadChangeEvents() {
+    // retrieves all the input rows and adds listeners on change to set the each of its price
+    for (var i = 0; i < (count + 1); i++) {
+      var product = ("#products" + i);
+      var index;
+      $(product).change(function () {
+        index = i - 1;
+        var selected = $((product + " option:selected"));
+
+        selectedObj = products.find(function (p) {
+          return p.id == selected.val();
+        });
+
+        $(("#price" + index + " input")).val(selectedObj.price);
+      });
+
+      $(("#qty" + i)).keyup(function () {
+        var qty = Number($(this).val());
+
+        $(("#total" + index + " input")).val((qty * selectedObj.price));
+      });
+    }
+  }
+
+  reloadChangeEvents();
+
+  $("#finish").click(function() {
+    var total = 0;
+    for (var i = 0; i < (count + 1); i++) {
+      total += Number($(("#totalProduct" + i)).val());
+    }
+
+    $("#totalOrder").val(total);
+  });
+</script>
