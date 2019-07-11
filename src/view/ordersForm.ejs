@@ -6,8 +6,13 @@
 
 <form>
   <div class="form-group">
-    <label for="cliente">Nombre Cliente</label>
-    <input type="text" class="form-control" id="cliente" placeholder="Ingrese nombre Cliente">
+    <label for="cliente">Cliente</label>
+      <select class="custom-select" id="cliente">
+        <option value="default">Elegir Cliente</option>
+        <% clients.forEach((client) => { %>
+        <option value=<%= client.id %>><%= client.name %></option>
+        <% }) %>
+      </select>>
   </div>
   <div class="form-group">
     <label for="vendedor">ID Vendedor</label>
