@@ -4,10 +4,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
-<form>
+<form id="newForm">
   <div class="form-group">
-    <label for="cliente">Nombre Cliente</label>
-    <input type="text" class="form-control" id="cliente" placeholder="Ingrese nombre Cliente">
+    <label for="cliente">Nro Cliente</label>
+    <input type="text" class="form-control" id="client" placeholder="Ingrese nro de Cliente">
   </div>
   <div class="d-none">
     <label for="vendedor">Nombre Vendedor</label>
@@ -44,7 +44,8 @@
     <label for="totalpedido">Total Pedido</label>
     <input type="text" class="form-control" id="totalOrder" placeholder="Total" disabled="disabled">
   </div>
-  <button type="cargar" class="btn btn-primary" id="btn">Cargar</button>
+  <button type="cargar" id="btnSend" class="btn btn-primary" id="btn">Cargar</button>
+  <a href="/" class="btn btn-primary">Volver</a>
 </form>
 
 <script type="text/javascript">
@@ -105,7 +106,7 @@
 
   reloadChangeEvents();
 
-  $("#finish").click(function() {
+  $("#finish").click(function () {
     var total = 0;
     for (var i = 0; i < (count + 1); i++) {
       total += Number($(("#totalProduct" + i)).val());
@@ -113,4 +114,42 @@
 
     $("#totalOrder").val(total);
   });
+
+  $("#btnSend").click(function () {
+    var jsonForm = {};
+
+    jsonForm.client = Number($("#client").val());
+    jsonForm.seller = 8001;
+    jsonForm.products = getProductsList();
+    jsonForm.total = Number($("#totalOrder").val());
+
+    $.ajax({
+      type: "POST",
+      url: "/orders/new_order",
+      data: JSON.stringify(jsonForm),
+      dataType: "json",
+      contentType: "application/json"
+    })
+    .done(function(data) {
+      console.log('success => ', data);
+    })
+    .fail(function(error) {
+      console.log('error => ', error);
+    });
+  })
+
+  function getProductsList() {
+    var productsList = [];
+
+    for (var i = 0; i < (count + 1); i++) {
+      var product = {};
+
+      product.id = $(("#products" + i) + " option:selected").val();
+      product.qty = Number($(("#qty" + i)).val());
+
+      productsList.push(product);
+    }
+
+    return productsList;
+  }
 </script>
